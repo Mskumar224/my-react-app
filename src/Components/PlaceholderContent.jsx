@@ -7,6 +7,7 @@ const PlaceholderContent = () => (
       p: 4,
       height: "100%",
       display: "flex",
+      flexDirection: "column", // Stack headers vertically
       alignItems: "center",
       justifyContent: "center",
       textAlign: "center",
@@ -16,8 +17,14 @@ const PlaceholderContent = () => (
       boxShadow: 3,
     }}
   >
+    <Typography variant="h4" gutterBottom>
+      "Welcome to MyApp"
+    </Typography>
+    <Typography variant="h5" gutterBottom>
+      "Unlock the future today"
+    </Typography>
     <Typography variant="h6">
-      "Innovation meets opportunity. Unlock the future with MyApp."
+      "LOGIN"
     </Typography>
   </Paper>
 );

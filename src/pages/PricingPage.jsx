@@ -4,8 +4,16 @@ import PricingCard from "../components/PricingCard";
 import WorkIcon from "@mui/icons-material/Work";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import BusinessIcon from "@mui/icons-material/Business";
+import { useNavigate } from "react-router-dom";
 
 const PricingPage = () => {
+  const navigate = useNavigate();
+
+  const handleSubscribe = (plan) => {
+    console.log(`Navigating to subscription page with plan: ${plan}`);
+    navigate("/subscription", { state: { plan } });
+  };
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} sm={4}>
@@ -19,6 +27,7 @@ const PricingPage = () => {
             { title: "QA Engineer", salary: "55,000 - 75,000" },
             { title: "UI/UX Designer", salary: "60,000 - 80,000" },
           ]}
+          onSubscribe={() => handleSubscribe("student")}
         />
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -32,6 +41,7 @@ const PricingPage = () => {
             { title: "Data Analyst", salary: "75,000 - 110,000" },
             { title: "DevOps Engineer", salary: "90,000 - 130,000" },
           ]}
+          onSubscribe={() => handleSubscribe("recruiter")}
         />
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -45,6 +55,7 @@ const PricingPage = () => {
             { title: "AI/ML Specialist", salary: "130,000 - 170,000" },
             { title: "Cloud Architect", salary: "140,000 - 180,000" },
           ]}
+          onSubscribe={() => handleSubscribe("b2b")}
         />
       </Grid>
     </Grid>

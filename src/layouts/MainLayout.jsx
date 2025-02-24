@@ -32,7 +32,7 @@ const MainLayout = () => {
     <>
       <Header />
       <Container maxWidth="lg" sx={{ mt: 5 }}>
-        <Outlet /> {/* This is where each page’s content will be displayed */}
+        <Outlet /> {/* This will load different page content */}
       </Container>
       <Footer />
     </>

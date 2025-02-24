@@ -1,9 +1,8 @@
 import React from "react";
-import PlaceholderContent from "../components/PlaceholderContent";  // ✅ Add a slash between ".." and "components"
-
+import PlaceholderContent from "../components/PlaceholderContent"; // Path is correct as is
 
 const HomePage = () => {
-  return <PlaceholderContent />;
+  return <PlaceholderContent />; // Simplified return, already valid JSX
 };
 
 export default HomePage;

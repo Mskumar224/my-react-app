@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import PricingPage from "./pages/PricingPage";
 import LoginPage from "./pages/LoginPage"; // ✅ Case-sensitive
 import AiToolsPage from "./pages/AiToolsPage";
+import UploadResumePage from "./pages/UploadResumePage";  // Import the UploadResumePage
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="pricing" element={<PricingPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="ai-tools" element={<AiToolsPage />} />
+          <Route path="upload-resume" element={<UploadResumePage />} />  {/* Add UploadResumePage route */}
         </Route>
       </Routes>
     </Router>

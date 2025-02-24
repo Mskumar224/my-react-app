@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import PricingPage from "./pages/PricingPage";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/LoginPage"; // ✅ Case-sensitive
 import AiToolsPage from "./pages/AiToolsPage";
 
 function App() {

@@ -1,7 +1,7 @@
 // src/pages/YourPage.jsx
 
 import React from "react";
-import UploadButton from "../components/UploadButton";  // Correct import path
+import UploadButton from "../Components/UploadButton";  // Correct import path
 
 const YourPage = () => {
   return (

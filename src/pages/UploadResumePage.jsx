@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Box, Container, Typography, Button, TextField, IconButton, Paper } from "@mui/material";
 import { Search, UploadFile } from "@mui/icons-material";
 import { storage, ref, uploadBytes } from '../firebase'; // Ensure this path is correct
-import UploadButton from "../components/UploadButton"; // This is your existing button component
+import UploadButton from "../Components/UploadButton"; // This is your existing button component
 
 const UploadResumePage = () => {
   const [searchQuery, setSearchQuery] = useState(""); // State for search query

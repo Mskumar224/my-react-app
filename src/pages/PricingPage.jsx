@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import PricingCard from "../components/PricingCard";
+import PricingCard from "../Components/PricingCard";
 import WorkIcon from "@mui/icons-material/Work";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import BusinessIcon from "@mui/icons-material/Business";

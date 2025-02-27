@@ -77,26 +77,9 @@ const UploadResumePage = () => {
         <Typography variant="h5" sx={{ mb: 2 }}>Upload Your Resume</Typography>
 
         {/* Custom Resume Upload Button */}
-        <Button
-          variant="contained"
-          color="primary"
-          component="label"
-          sx={{ mb: 2 }}
-          startIcon={<UploadFile />}
-        >
-          Upload Resume
-          <input
-            type="file"
-            accept=".pdf,.doc,.docx"
-            hidden
-            onChange={handleFileChange} // Handle file selection
-          />
-        </Button>
+        
 
-        {/* Button to trigger the upload */}
-        <Button onClick={handleUpload} disabled={uploading}>
-          {uploading ? 'Uploading...' : 'Upload to Firebase'}
-        </Button>
+  
 
         {/* Display the file name */}
         {fileName && (

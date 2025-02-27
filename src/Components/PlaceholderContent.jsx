@@ -61,20 +61,6 @@ const PlaceholderContent = () => (
     </Box>
 
     {/* Resume Upload Button */}
-    <Button
-      variant="contained"
-      color="primary"
-      startIcon={<UploadIcon />}
-      sx={{
-        bgcolor: blue[700],
-        ":hover": { bgcolor: blue[800] },
-        color: "white",  // Use white directly here
-        fontWeight: "bold",
-        padding: "12px 24px",
-      }}
-    >
-      Upload Resume
-    </Button>
   </Paper>
 );
 

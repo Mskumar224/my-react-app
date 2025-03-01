@@ -1,27 +1,21 @@
-// src/App.js
-
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";  // Ensure this is the correct path
-import HomePage from "./pages/HomePage";  // Ensure this is the correct path
-import PricingPage from "./pages/PricingPage";  // Ensure this is the correct path
-import LoginPage from "./pages/LoginPage";  // ✅ Case-sensitive
-import AiToolsPage from "./pages/AiToolsPage";  // Ensure this is the correct path
-import UploadResumePage from "./pages/UploadResumePage";  // Import the UploadResumePage
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import UploadResume from './Components/ResumeUpload';
+import AutoApply from './Components/AutoApply';
+import UpdateResume from './Components/UpdateResume';
+import './index.css';
 
 function App() {
   return (
     <Router>
-      <Routes>
-        {/* Main Layout for general routes */}
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="pricing" element={<PricingPage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="ai-tools" element={<AiToolsPage />} />
-          <Route path="upload-resume" element={<UploadResumePage />} /> {/* Add UploadResumePage route */}
-        </Route>
-      </Routes>
+      <div className="container">
+        <h1 className="site-title">ZvertexAI</h1>
+        <Routes>
+          <Route path="/" element={<UploadResume />} />
+          <Route path="/auto-apply" element={<AutoApply />} />
+          <Route path="/update-resume" element={<UpdateResume />} />
+        </Routes>
+      </div>
     </Router>
   );
 }

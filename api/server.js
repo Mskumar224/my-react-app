@@ -2,23 +2,25 @@ import express from 'express';
 import mongoose from 'mongoose';
 import multer from 'multer';
 import path from 'path';
-import cors from 'cors';
-import { fileURLToPath } from 'url';
 import fs from 'fs';
 import mammoth from 'mammoth';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const app = express();
-const port = process.env.PORT || 5000;
 
-app.use(cors());
+// Explicit CORS headers for every response
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 app.use(express.json());
 
-const mongoURI = 'mongodb://localhost:27017/';
+// MongoDB Connection
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/';
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected to test database'))
+  .then(() => console.log('MongoDB connected'))
   .catch(err => console.log('MongoDB connection error:', err));
 
 // Resume Schema
@@ -32,9 +34,9 @@ const resumeSchema = new mongoose.Schema({
 });
 const Resume = mongoose.model('Resume', resumeSchema);
 
-// Multer setup for file uploads
+// Multer setup for temporary storage
 const storage = multer.diskStorage({
-  destination: './uploads/',
+  destination: '/tmp',
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
   },
@@ -78,19 +80,24 @@ const detectTechnologies = async (filePath, fileType) => {
   }
 };
 
-// Upload Endpoint with Technology Detection
-app.post('/api/upload', upload.single('resume'), async (req, res) => {
+// Upload Endpoint
+app.post('/upload', upload.single('resume'), async (req, res) => {
   try {
-    const filePath = path.join(__dirname, req.file.path);
+    const filePath = path.join('/tmp', req.file.filename);
     const fileType = req.file.mimetype;
     const technologies = await detectTechnologies(filePath, fileType);
 
     const newResume = new Resume({
       filename: req.file.filename,
-      path: req.file.path,
+      path: filePath,
       technologies,
     });
     await newResume.save();
+
+    fs.unlink(filePath, (err) => {
+      if (err) console.error('Error deleting temp file:', err);
+    });
+
     console.log('Saved to MongoDB:', newResume);
     res.status(200).json({ 
       message: 'Resume uploaded successfully', 
@@ -104,7 +111,7 @@ app.post('/api/upload', upload.single('resume'), async (req, res) => {
 });
 
 // Update Companies Endpoint
-app.post('/api/resume/:id/companies', async (req, res) => {
+app.post('/resume/:id/companies', async (req, res) => {
   try {
     const { companies } = req.body;
     const resume = await Resume.findByIdAndUpdate(
@@ -120,8 +127,8 @@ app.post('/api/resume/:id/companies', async (req, res) => {
   }
 });
 
-// Fetch Jobs and Auto-Apply Endpoint
-app.post('/api/resume/:id/auto-apply', async (req, res) => {
+// Auto-Apply Endpoint
+app.post('/resume/:id/auto-apply', async (req, res) => {
   try {
     const resume = await Resume.findById(req.params.id);
     if (!resume || !resume.companies.length) {
@@ -161,6 +168,4 @@ app.post('/api/resume/:id/auto-apply', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+export default app;

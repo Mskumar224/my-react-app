@@ -22,14 +22,11 @@ const AutoApply = () => {
 
   const handleConfirm = async () => {
     try {
-      await axios.post(`https://zvertexai.netlify.app/.netlify/functions/companies`, { 
+      await axios.post(`https://zvertexai.vercel.app/api/resume/${resumeId}/companies`, { // Replace with your actual domain
         companies: selectedCompanies,
-        id: resumeId // Pass resumeId in body for Netlify
       });
 
-      const response = await axios.post(`https://zvertexai.netlify.app/.netlify/functions/auto-apply`, {
-        id: resumeId // Pass resumeId in body for Netlify
-      });
+      const response = await axios.post(`https://zvertexai.vercel.app/api/resume/${resumeId}/auto-apply`); // Replace with your actual domain
       setAppliedJobs(response.data.appliedJobs);
       setMessage('Good to go! Auto-applied to jobs at selected companies.');
       console.log('Auto-apply response:', response.data);

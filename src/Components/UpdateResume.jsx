@@ -38,7 +38,7 @@ const UpdateResume = () => {
     formData.append('resume', updatedFile);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/upload', formData, {
+      const response = await axios.post('https://zvertexai.netlify.app/.netlify/functions/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setMessage('Updated resume uploaded successfully');
@@ -60,11 +60,14 @@ const UpdateResume = () => {
 
   const handleConfirm = async () => {
     try {
-      await axios.post(`http://localhost:5000/api/resume/${resumeId}/companies`, {
+      await axios.post(`https://zvertexai.netlify.app/.netlify/functions/companies`, { 
         companies: selectedCompanies,
+        id: resumeId // Pass resumeId in body for Netlify
       });
 
-      const response = await axios.post(`http://localhost:5000/api/resume/${resumeId}/auto-apply`);
+      const response = await axios.post(`https://zvertexai.netlify.app/.netlify/functions/auto-apply`, {
+        id: resumeId // Pass resumeId in body for Netlify
+      });
       setAppliedJobs(response.data.appliedJobs);
       setMessage('Good to go! Auto-applied updated resume to selected companies.');
       console.log('Auto-apply response:', response.data);
@@ -93,7 +96,12 @@ const UpdateResume = () => {
       ) : (
         <>
           <form onSubmit={handleUploadUpdated}>
-            <input type="file" onChange={handleFileChange} accept=".pdf,.docx" />
+            <input 
+              type="file" 
+              onChange={handleFileChange} 
+              accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
+              multiple={false} 
+            />
             <button type="submit">Upload Updated Resume</button>
           </form>
           {message && !selectedCompanies.length && !appliedJobs.length && (

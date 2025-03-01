@@ -30,7 +30,7 @@ const UploadResume = () => {
     formData.append('resume', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/upload', formData, {
+      const response = await axios.post('https://zvertexai.netlify.app/.netlify/functions/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setMessage(response.data.message);
@@ -71,7 +71,12 @@ const UploadResume = () => {
     <div>
       <h2>Upload Resume</h2>
       <form onSubmit={handleUpload}>
-        <input type="file" onChange={handleFileChange} accept=".pdf,.docx" />
+        <input 
+          type="file" 
+          onChange={handleFileChange} 
+          accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" 
+          multiple={false} 
+        />
         <button type="submit">Upload Resume</button>
       </form>
       {message && <p>{message}</p>}

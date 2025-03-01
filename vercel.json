@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/main.jsx",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    },
+    {
+      "src": "api/upload.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/resume/[id]/companies.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/resume/[id]/auto-apply.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/upload",
+      "methods": ["POST"],
+      "dest": "/api/upload.js"
+    },
+    {
+      "src": "/api/resume/([^/]+)/companies",
+      "methods": ["POST"],
+      "dest": "/api/resume/[id]/companies.js"
+    },
+    {
+      "src": "/api/resume/([^/]+)/auto-apply",
+      "methods": ["POST"],
+      "dest": "/api/resume/[id]/auto-apply.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "src/main.jsx"
+    }
+  ]
+}
